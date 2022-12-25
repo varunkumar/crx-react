@@ -1,17 +1,21 @@
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { existsSync } from 'fs-extra';
+import fsExtra from 'fs-extra';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { join, resolve as _resolve } from 'path';
+import { dirname, join, resolve as _resolve } from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
-import { EnvironmentPlugin, ProgressPlugin } from 'webpack';
-import { NODE_ENV } from './utils/env';
+import { fileURLToPath } from 'url';
+import webpack from 'webpack';
+import { NODE_ENV } from './utils/env.js';
+const { EnvironmentPlugin, ProgressPlugin } = webpack;
+const { existsSync } = fsExtra;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
-
-var alias = {
-  'react-dom': '@hot-loader/react-dom',
-};
+var alias = {};
 
 // load the secrets
 var secretsPath = join(__dirname, 'secrets.' + NODE_ENV + '.js');
@@ -33,8 +37,10 @@ if (existsSync(secretsPath)) {
   alias['secrets'] = secretsPath;
 }
 
+const isDevelopment = NODE_ENV !== 'production';
+
 var options = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: NODE_ENV,
   entry: {
     newtab: join(__dirname, 'src', 'pages', 'Newtab', 'index.jsx'),
     options: join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
@@ -97,6 +103,9 @@ var options = {
           },
           {
             loader: 'babel-loader',
+            options: {
+              plugins: [isDevelopment && 'react-refresh/babel'].filter(Boolean),
+            },
           },
         ],
         exclude: /node_modules/,
@@ -196,8 +205,9 @@ var options = {
   },
 };
 
-if (NODE_ENV === 'development') {
+if (isDevelopment) {
   options.devtool = 'cheap-module-source-map';
+  options.plugins.push(new ReactRefreshWebpackPlugin());
 } else {
   options.optimization = {
     minimize: true,

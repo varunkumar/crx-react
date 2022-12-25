@@ -3,27 +3,31 @@ process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
 process.env.ASSET_PATH = '/';
 
-var WebpackDevServer = require('webpack-dev-server'),
-  webpack = require('webpack'),
-  config = require('../webpack.config'),
-  env = require('./env'),
-  path = require('path');
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import config from '../webpack.config.js';
+import { PORT } from './env.js';
+const { HotModuleReplacementPlugin } = webpack;
+let { chromeExtensionBoilerplate, entry, plugins } = config;
 
-var options = config.chromeExtensionBoilerplate || {};
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+var options = chromeExtensionBoilerplate || {};
 var excludeEntriesToHotReload = options.notHotReload || [];
 
-for (var entryName in config.entry) {
+for (var entryName in entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
-    config.entry[entryName] = [
+    entry[entryName] = [
       'webpack/hot/dev-server',
-      `webpack-dev-server/client?hot=true&hostname=localhost&port=${env.PORT}`,
-    ].concat(config.entry[entryName]);
+      `webpack-dev-server/client?hot=true&hostname=localhost&port=${PORT}`,
+    ].concat(entry[entryName]);
   }
 }
 
-config.plugins = [new webpack.HotModuleReplacementPlugin()].concat(
-  config.plugins || []
-);
+plugins = [new HotModuleReplacementPlugin()].concat(plugins || []);
 
 delete config.chromeExtensionBoilerplate;
 
@@ -32,15 +36,16 @@ var compiler = webpack(config);
 var server = new WebpackDevServer(
   {
     https: false,
-    hot: false,
+    hot: 'only',
+    liveReload: false,
     client: false,
     host: 'localhost',
-    port: env.PORT,
+    port: PORT,
     static: {
-      directory: path.join(__dirname, '../build'),
+      directory: join(__dirname, '../build'),
     },
     devMiddleware: {
-      publicPath: `http://localhost:${env.PORT}/`,
+      publicPath: `http://localhost:${PORT}/`,
       writeToDisk: true,
     },
     headers: {
@@ -51,8 +56,8 @@ var server = new WebpackDevServer(
   compiler
 );
 
-if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept();
+if (process.env.NODE_ENV === 'development' && import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
 }
 
 (async () => {
