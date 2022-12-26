@@ -43,7 +43,7 @@ var options = {
   mode: NODE_ENV,
   entry: {
     newtab: join(__dirname, 'src', 'pages', 'Newtab', 'index.jsx'),
-    options: join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
+    options: join(__dirname, 'src', 'pages', 'Options', 'index.tsx'),
     popup: join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
     background: join(__dirname, 'src', 'pages', 'Background', 'index.js'),
     contentScript: join(__dirname, 'src', 'pages', 'Content', 'index.js'),
@@ -94,9 +94,8 @@ var options = {
         loader: 'html-loader',
         exclude: /node_modules/,
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         use: [
           {
             loader: 'source-map-loader',

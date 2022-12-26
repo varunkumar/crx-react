@@ -6,4 +6,4 @@ import Newtab from './Newtab';
 
 render(<Newtab />, window.document.querySelector('#app-container'));
 
-if (import.meta. webpackHot) import.meta.webpackHot.accept();
+if (import.meta.webpackHot) import.meta.webpackHot.accept();

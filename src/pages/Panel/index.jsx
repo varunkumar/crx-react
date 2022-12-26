@@ -6,4 +6,4 @@ import Panel from './Panel';
 
 render(<Panel />, window.document.querySelector('#app-container'));
 
-if (import.meta. webpackHot) import.meta.webpackHot.accept();
+if (import.meta.webpackHot) import.meta.webpackHot.accept();
