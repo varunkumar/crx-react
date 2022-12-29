@@ -1,9 +1,12 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import './index.css';
 import Newtab from './Newtab';
 
-render(<Newtab />, window.document.querySelector('#app-container'));
+const container =
+  window.document.querySelector('#app-container') || window.document.body;
+const root = createRoot(container);
+root.render(<Newtab />);
 
 if (import.meta.webpackHot) import.meta.webpackHot.accept();

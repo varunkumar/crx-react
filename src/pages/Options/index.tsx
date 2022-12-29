@@ -1,12 +1,12 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import './index.css';
 import Options from './Options';
 
-render(
-  <Options title={'Settings'} />,
-  window.document.querySelector('#app-container')
-);
+const container: Element =
+  window.document.querySelector('#app-container') || window.document.body;
+const root = createRoot(container);
+root.render(<Options title={'Settings'} />);
 
 if (import.meta.webpackHot) import.meta.webpackHot.accept();
