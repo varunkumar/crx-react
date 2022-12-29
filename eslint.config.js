@@ -8,6 +8,9 @@ const __dirname = path.dirname(__filename); // eslint-disable-line
 const compat = new FlatCompat({});
 
 export default [
+  {
+    ignores: ['build/*', 'node_modules/*'],
+  },
   ...compat.config({
     env: {
       browser: true,
@@ -25,6 +28,11 @@ export default [
       sourceType: 'module',
     },
     plugins: ['react', '@typescript-eslint'],
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     rules: {},
   }),
 ];
