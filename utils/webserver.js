@@ -1,3 +1,4 @@
+/* global process:false */
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
@@ -9,8 +10,7 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import config from '../webpack.config.js';
 import { PORT } from './env.js';
-const { HotModuleReplacementPlugin } = webpack;
-let { chromeExtensionBoilerplate, entry, plugins } = config;
+let { chromeExtensionBoilerplate, entry } = config;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,8 +26,6 @@ for (var entryName in entry) {
     ].concat(entry[entryName]);
   }
 }
-
-plugins = [new HotModuleReplacementPlugin()].concat(plugins || []);
 
 delete config.chromeExtensionBoilerplate;
 

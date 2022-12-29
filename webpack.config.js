@@ -1,8 +1,10 @@
+/* global process:false */
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import fsExtra from 'fs-extra';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { Buffer } from 'node:buffer';
 import { dirname, join, resolve as _resolve } from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 import { fileURLToPath } from 'url';
@@ -128,7 +130,7 @@ var options = {
           from: 'src/manifest.json',
           to: join(__dirname, 'build'),
           force: true,
-          transform: function (content, path) {
+          transform: function (content) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
               JSON.stringify({

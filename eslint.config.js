@@ -1,7 +1,30 @@
-import typescript from '@typescript-eslint/eslint-plugin/recommended.js';
-import react from 'eslint-plugin-react/config/recommended.js';
+import { FlatCompat } from '@eslint/eslintrc';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-console.log(typescript);
-console.log(react);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename); // eslint-disable-line
 
-export default ['eslint:recommended', react, typescript];
+const compat = new FlatCompat({});
+
+export default [
+  ...compat.config({
+    env: {
+      browser: true,
+      es2021: true,
+    },
+    extends: [
+      'eslint:recommended',
+      'plugin:react/recommended',
+      'plugin:@typescript-eslint/recommended',
+    ],
+    overrides: [],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+    plugins: ['react', '@typescript-eslint'],
+    rules: {},
+  }),
+];
