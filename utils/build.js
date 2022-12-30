@@ -7,7 +7,7 @@ process.env.ASSET_PATH = '/';
 import webpack from 'webpack';
 import config from '../webpack.config.js';
 
-delete config.chromeExtensionBoilerplate;
+delete config.customConfig;
 
 config.mode = 'production';
 

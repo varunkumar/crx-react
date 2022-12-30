@@ -52,7 +52,7 @@ var options = {
     devtools: join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
     panel: join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
   },
-  chromeExtensionBoilerplate: {
+  customConfig: {
     notHotReload: ['background', 'contentScript', 'devtools'],
   },
   output: {

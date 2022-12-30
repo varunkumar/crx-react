@@ -10,12 +10,12 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import config from '../webpack.config.js';
 import { PORT } from './env.js';
-let { chromeExtensionBoilerplate, entry } = config;
+let { customConfig, entry } = config;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-var options = chromeExtensionBoilerplate || {};
+var options = customConfig || {};
 var excludeEntriesToHotReload = options.notHotReload || [];
 
 for (var entryName in entry) {
@@ -27,7 +27,7 @@ for (var entryName in entry) {
   }
 }
 
-delete config.chromeExtensionBoilerplate;
+delete config.customConfig;
 
 var compiler = webpack(config);
 
