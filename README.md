@@ -1,1 +1,1 @@
-# Chrome extension for boosting ChatGPT experience
+# Template for creating a Chrome extension using React
