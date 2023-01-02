@@ -1,24 +1,25 @@
-/* global process:false */
+/* eslint-disable no-restricted-syntax */
 // Do this as the first thing so that any code reading it knows the right env.
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import webpack from 'webpack'; // eslint-disable-line
+import WebpackDevServer from 'webpack-dev-server'; // eslint-disable-line
+import config from '../webpack.config.js'; // eslint-disable-line
+import { PORT } from './env.js';
+
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
 process.env.ASSET_PATH = '/';
 
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
-import config from '../webpack.config.js';
-import { PORT } from './env.js';
-let { customConfig, entry } = config;
+const { customConfig, entry } = config;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const FILE_NAME = fileURLToPath(import.meta.url);
+const DIR_NAME = dirname(FILE_NAME);
 
-var options = customConfig || {};
-var excludeEntriesToHotReload = options.notHotReload || [];
+const options = customConfig || {};
+const excludeEntriesToHotReload = options.notHotReload || [];
 
-for (var entryName in entry) {
+for (const entryName in entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     entry[entryName] = [
       'webpack/hot/dev-server',
@@ -29,9 +30,9 @@ for (var entryName in entry) {
 
 delete config.customConfig;
 
-var compiler = webpack(config);
+const compiler = webpack(config);
 
-var server = new WebpackDevServer(
+const server = new WebpackDevServer(
   {
     https: false,
     hot: 'only',
@@ -40,7 +41,7 @@ var server = new WebpackDevServer(
     host: 'localhost',
     port: PORT,
     static: {
-      directory: join(__dirname, '../build'),
+      directory: join(DIR_NAME, '../build'),
     },
     devMiddleware: {
       publicPath: `http://localhost:${PORT}/`,
@@ -51,7 +52,7 @@ var server = new WebpackDevServer(
     },
     allowedHosts: 'all',
   },
-  compiler
+  compiler,
 );
 
 if (process.env.NODE_ENV === 'development' && import.meta.webpackHot) {

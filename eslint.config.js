@@ -1,9 +1,4 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename); // eslint-disable-line
+import { FlatCompat } from '@eslint/eslintrc'; // eslint-disable-line
 
 const compat = new FlatCompat({});
 
@@ -20,6 +15,8 @@ export default [
       'eslint:recommended',
       'plugin:react/recommended',
       'plugin:@typescript-eslint/recommended',
+      'airbnb',
+      'prettier',
     ],
     overrides: [],
     parser: '@typescript-eslint/parser',
@@ -33,6 +30,15 @@ export default [
         version: 'detect',
       },
     },
-    rules: {},
+    rules: {
+      'import/extensions': ['off', 'ignorePackages'],
+      'react/jsx-filename-extension': [
+        1,
+        {
+          extensions: ['.tsx'],
+        },
+      ],
+      'operator-linebreak': ['error', 'after'],
+    },
   }),
 ];
