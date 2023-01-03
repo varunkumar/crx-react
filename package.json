@@ -1,7 +1,7 @@
 {
   "name": "crx-react",
   "version": "0.0.1",
-  "description": "A chrome extension for boosting ChatGPT experience",
+  "description": "Template for creating a Chrome extension using React",
   "license": "MIT",
   "repository": {
     "type": "git",
