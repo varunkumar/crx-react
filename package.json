@@ -14,7 +14,7 @@
     "prettify": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "prettier-check": "prettier --check '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "lint": "eslint .",
-    "check-types": "tsc --noEmit"
+    "types-check": "tsc --noEmit"
   },
   "author": "Varunkumar Nagarajan",
   "bugs": {
@@ -37,7 +37,6 @@
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^9.1.0",
     "babel-preset-react-app": "^10.0.1",
     "clean-webpack-plugin": "^4.0.0",
