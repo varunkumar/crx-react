@@ -14,7 +14,8 @@
     "prettify": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "prettier-check": "prettier --check '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "lint": "eslint .",
-    "types-check": "tsc --noEmit"
+    "types-check": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "author": "Varunkumar Nagarajan",
   "bugs": {
@@ -65,6 +66,7 @@
     "typescript": "^4.9.4",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.11.1",
+    "husky": "^8.0.0"
   }
 }
