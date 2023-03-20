@@ -1,6 +1,8 @@
 import { FlatCompat } from '@eslint/eslintrc'; // eslint-disable-line
 
-const compat = new FlatCompat({});
+const compat = new FlatCompat({
+  recommendedConfig: { settings: { 'eslint:recommended': true } },
+});
 
 export default [
   {
