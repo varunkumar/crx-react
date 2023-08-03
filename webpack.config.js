@@ -1,12 +1,12 @@
+import { Buffer } from 'node:buffer';
+import { dirname, join, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import fsExtra from 'fs-extra';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { Buffer } from 'node:buffer';
-import { dirname, join, resolve } from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
-import { fileURLToPath } from 'url';
 import webpack from 'webpack';
 import { NODE_ENV } from './utils/env.js';
 
